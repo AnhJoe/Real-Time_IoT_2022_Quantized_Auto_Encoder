@@ -1,0 +1,15 @@
+project:
+  type: website
+  output-dir: outputs/reports
+
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+
+format:
+  html:
+    toc: true
+    number-sections: true
+    code-fold: true
+    theme: cosmo
