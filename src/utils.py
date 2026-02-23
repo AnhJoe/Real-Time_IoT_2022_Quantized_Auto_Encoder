@@ -23,7 +23,7 @@ def as_table(obj: Any) -> pd.DataFrame:
 def show_table(
     data: Any,
     *,
-    max_rows: int = 30,
+    max_rows: int = 100,
     max_cols: int = 20,
 ) -> pd.DataFrame:
     """
