@@ -1,0 +1,553 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  8pt,
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+\usepackage{xcolor}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage[section]{placeins}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\KOMAoption{captions}{tableheading}
+\usepackage{textcomp}
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Supervised Classification for anomaly detection in IoT devices using RT-IoT2022 dataset},
+  pdfauthor={Joe Nguyen},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Supervised Classification for anomaly detection in IoT devices
+using RT-IoT2022 dataset}
+\author{Joe Nguyen}
+\date{}
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+\bookmarksetup{startatroot}
+
+\chapter{Introduction:}\label{introduction}
+
+The rapid adoption of Internet of Things (IoT) technologies across
+sectors such as healthcare, manufacturing, and agriculture has increased
+reliance on continuous connectivity and large-scale data exchange. While
+this connectivity enables new capabilities, it also expands the attack
+surface, making IoT devices attractive entry points for cyberattacks.
+Compromised devices can be leveraged to infiltrate broader network
+infrastructures through vulnerable endpoints (Sharmila and Nagapadma,
+2023). The financial impact of these attacks continues to grow. The IBM
+Cost of a Data Breach Report 2025 estimates the global average cost of a
+breach at USD 4.44 million, highlighting the sustained economic risk
+posed by increasingly sophisticated and AI-enabled threats (IBM
+Security, 2025). Real-world incidents illustrate these risks clearly. In
+2021, the Verkada breach exposed live feeds from approximately 150
+million surveillance cameras, and in a separate incident, an attacker
+manipulated chemical levels at a Florida water treatment facility.
+Together, these events demonstrate the real-world consequences of
+cyberattacks targeting IoT systems and reinforce the need for reliable
+anomaly detection mechanisms as IoT deployments continue to scale
+(Sharmila and Nagapadma, 2023).
+
+This project replicates and extends the work of Sharmila and Nagapadma
+(2023) by evaluating autoencoder-based anomaly detection for identifying
+malicious IoT network traffic. Beyond replication, the study emphasizes
+systematic model selection, rigorous evaluation of predictive and
+generalization performance, and interpretation of how learned
+representations relate to underlying traffic features. Because IoT
+environments exhibit heterogeneous and device-specific traffic patterns,
+effective anomaly detection requires models that learn normal behavioral
+baselines rather than predefined attack signatures. Consistent with
+prior work, autoencoder models are trained exclusively on benign traffic
+under the assumption that anomalous activity produces higher
+reconstruction error. Experiments are conducted using real-time traffic
+collected from four representative devices---ThingSpeak-LED, MQTT-Temp,
+Amazon Alexa, and Wipro Bulb---allowing evaluation of model robustness
+across diverse IoT operating conditions.
+
+Modern intrusion detection systems (IDS) for IoT environments
+increasingly rely on unsupervised learning, particularly anomaly
+detection, to identify rare deviations from normal network behavior. As
+discussed by Sharmila and Nagapadma (2023), this approach is well suited
+to IoT settings where labeled attack data is limited and anomalous
+events may have significant operational or environmental consequences.
+Progress in this area, however, has been constrained by the scarcity of
+realistic IoT network traffic datasets. To address this limitation, the
+authors emphasize the importance of datasets derived from real-time IoT
+devices that capture both benign and malicious activity patterns.
+
+The authors also note that deploying AI-based IDS frameworks directly on
+IoT devices introduces practical constraints due to limited memory,
+processing power, and energy availability. Consequently, conventional
+deep learning models are often impractical without optimization. Their
+work highlights model optimization techniques---including network
+pruning and numerical quantization---as effective strategies for
+reducing model size and computational overhead while maintaining
+detection performance. These optimizations enable faster inference,
+lower energy consumption, and more feasible deployment of anomaly
+detection models on resource-constrained IoT hardware.
+
+\section{Project Objectives:}\label{project-objectives}
+
+The goal of this project is to evaluate machine learning approaches for
+detecting anomalous network behavior in IoT environments using the
+RT-IoT 2022 dataset, with emphasis on both predictive performance and
+real-world deployment constraints.
+
+The project is guided by the following objectives:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Establish a Supervised Baseline
+
+  \begin{itemize}
+  \item
+    Develop a Logistic Regression classifier as an interpretable
+    baseline for distinguishing between normal and attack network
+    traffic.
+  \item
+    This model provides a statistical reference point for evaluating
+    more complex approaches and helps assess how effectively a linear
+    decision boundary separates benign and malicious IoT activity.
+  \end{itemize}
+\item
+  Develop Autoencoder-Based Anomaly Detection Models
+
+  \begin{itemize}
+  \item
+    Implement autoencoder architectures (QAE-u8 and QAE-f16) trained
+    primarily on normal network traffic, using reconstruction error to
+    identify anomalous behavior.
+  \item
+    These models aim to learn compact representations of normal device
+    activity and flag deviations that may correspond to cyberattacks.
+    The analysis examines how representation learning compares with
+    classical supervised classification for intrusion detection.
+  \end{itemize}
+\item
+  Evaluate Edge Deployment Under Resource Constraints
+
+  \begin{itemize}
+  \item
+    Deploy trained models on a Raspberry Pi to evaluate feasibility
+    within resource-constrained IoT environments.
+  \item
+    Evaluation focuses on operational characteristics, including:
+
+    \begin{itemize}
+    \item
+      inference latency
+    \item
+      CPU and memory utilization
+    \item
+      power and computational efficiency
+    \item
+      model size and deployment overhead
+    \end{itemize}
+  \item
+    This objective connects model performance with practical
+    edge-computing requirements.
+  \end{itemize}
+\item
+  Analyze Performance--Efficiency Tradeoffs
+
+  \begin{itemize}
+  \item
+    Compare supervised and unsupervised approaches not only by
+    predictive performance but also by efficiency when deployed on
+    constrained hardware.
+  \item
+    The goal is to identify which modeling strategy provides the best
+    balance between:
+
+    \begin{itemize}
+    \item
+      detection capability
+    \item
+      computational cost
+    \item
+      real-world deployability in IoT security settings
+    \end{itemize}
+  \end{itemize}
+\end{enumerate}
+
+\section{Data Summary:}\label{data-summary}
+
+Source Link: https://archive.ics.uci.edu/dataset/942/rt-iot2022
+
+RT-IoT2022 is a network traffic dataset collected from a real-time IoT
+environment containing both normal device activity and multiple
+simulated cyberattacks. The dataset includes traffic generated by IoT
+devices alongside attack scenarios such as brute-force SSH attempts,
+DDoS attacks (e.g., Hping and Slowloris), and network scanning patterns.
+Network flows are captured bidirectionally using the Zeek monitoring
+framework with the Flowmeter plugin, producing structured flow-level
+features that characterize packet behavior, timing, and protocol
+dynamics.
+
+In this project, RT-IoT2022 serves as the foundation for developing and
+evaluating intrusion detection approaches---particularly anomaly
+detection using autoencoders---aimed at identifying malicious behavior
+within real-time IoT network traffic.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  \textbf{Predictor (Feature) Variables}: The RT-IoT2022 dataset
+  contains \textbf{83 predictor features} describing network traffic
+  flows generated by real-time IoT devices. Rather than representing
+  unrelated variables, these features follow a systematic naming
+  convention built from combinations of directional prefixes and
+  statistical or behavioral suffixes. Each feature captures a measurable
+  property of packet flows---such as volume, timing, payload
+  characteristics, protocol behavior, or connection state---computed
+  either for one traffic direction or for the entire bidirectional flow.
+
+  This structured design allows the dataset to encode network behavior
+  at multiple granularities (packet, flow, and temporal statistics),
+  making it well suited for intrusion detection and anomaly detection
+  tasks. Understanding the prefix--suffix pattern is essential for
+  interpreting the predictors.
+
+  \textbf{Prefixes (traffic scope / direction)}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    fwd\_ (forward): statistics computed for packets traveling from the
+    origin/source to the responder/destination.
+  \item
+    bwd\_ (backward): statistics computed for packets traveling from the
+    responder/destination back to the origin/source.
+  \item
+    flow\_ (flow-level): aggregate statistics computed across the entire
+    bidirectional communication flow.
+  \item
+    active\_ / idle\_: metrics describing active transmission periods
+    versus inactive (silent) intervals within a connection.
+  \item
+    (No prefix): global or contextual attributes describing protocol,
+    ports, or overall flow characteristics.
+  \end{itemize}
+
+  \textbf{Suffixes (measurement type / statistical summary)}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    .min --- minimum observed value within the flow.
+  \item
+    .max --- maximum observed value within the flow.
+  \item
+    .tot --- total accumulated value.
+  \item
+    .avg --- arithmetic mean across packets/events.
+  \item
+    .std --- standard deviation measuring variability.
+  \item
+    \_per\_sec --- rate-based metric normalized by time.
+  \item
+    \_flag\_count --- count of packets containing specific TCP control
+    flags.
+  \item
+    \_bytes, \_pkts, \_payload --- volume-based measurements describing
+    byte counts, packet counts, or payload sizes.
+  \item
+    \_iat --- inter-arrival time statistics between packets.
+  \item
+    \_window\_size --- TCP window characteristics reflecting
+    transport-layer behavior.
+  \end{itemize}
+
+  This prefix--suffix structure enables consistent interpretation across
+  the 83 features while allowing the same behavioral concept (e.g.,
+  payload size or timing variability) to be analyzed across traffic
+  directions and statistical summaries.
+\item
+  \textbf{Outcome (Response) Variable}: Attack\_type (categorical)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Attack patterns:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      DOS\_SYN\_Hping
+    \item
+      ARP\_poisioning
+    \item
+      NMAP\_UDP\_SCAN
+    \item
+      NMAP\_XMAS\_TREE\_SCAN
+    \item
+      NMAP\_OS\_DETECTION
+    \item
+      NMAP\_TCP\_scan
+    \item
+      DDOS\_Slowloris
+    \item
+      Metasploit\_Brute\_Force\_SSH
+    \item
+      NMAP\_FIN\_SCAN
+    \end{itemize}
+  \item
+    Normal Patterns:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      MQTT
+    \item
+      Thing\_speak
+    \item
+      Wipro\_bulb\_Dataset
+    \item
+      Amazon-Alexa (\textbf{MISSING FROM DATASET})
+    \end{itemize}
+  \end{itemize}
+\end{enumerate}
+
+\section{Previous Work:}\label{previous-work}
+
+\section{Report Organization:}\label{report-organization}
+
+The remainder of this report is structured as follows.
+
+Section 2 presents an exploratory analysis of the RT-IoT 2022 dataset,
+examining feature distributions, statistical separation between normal
+and attack traffic, and the overall structure of the data through
+techniques such as kernel density estimation, skewness analysis,
+correlation mapping, and principal component analysis. Diagnostic tools
+such as variance inflation factors are also used to examine
+multicollinearity among predictors. These analyses provide insight into
+the behavioral differences between benign and malicious network flows
+and motivate the preprocessing and modeling choices used in later
+sections.
+
+Section 3 describes the feature preprocessing pipeline used to prepare
+the dataset for modeling. This includes the encoding of categorical
+variables, identification of highly skewed features, and the application
+of log transformations to stabilize feature distributions.
+
+Section 4 introduces a supervised baseline classifier using Logistic
+Regression. This section outlines the modeling framework, training
+procedure, and evaluation metrics used to establish a statistical
+benchmark for intrusion detection performance on the dataset.
+
+Section 5 extends the analysis to unsupervised anomaly detection using
+autoencoder-based models. These models are trained on normal traffic
+patterns and evaluated on their ability to identify anomalous behavior
+corresponding to attack traffic.
+
+Section 6 compares the performance of the supervised and unsupervised
+approaches and discusses their strengths and limitations.
+
+Finally, Section 7 concludes the report by summarizing the key findings,
+discussing dataset limitations---including the absence of Amazon Alexa
+traffic---and outlining directions for future work, including edge
+deployment considerations for IoT intrusion detection systems.
+
+\bookmarksetup{startatroot}
+
+\chapter{Exploratory Data Analysis
+(EDA):}\label{exploratory-data-analysis-eda}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\bookmarksetup{startatroot}
+
+\chapter{Preprocessing}\label{preprocessing}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\bookmarksetup{startatroot}
+
+\chapter{Baseline Logistic Regression
+Model}\label{baseline-logistic-regression-model}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\bookmarksetup{startatroot}
+
+\chapter{Autoencoder Models}\label{autoencoder-models}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\bookmarksetup{startatroot}
+
+\chapter{Model Comparison}\label{model-comparison}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\bookmarksetup{startatroot}
+
+\chapter{Conclusion}\label{conclusion}
+
+
+
+
+\end{document}

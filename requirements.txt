@@ -9,3 +9,4 @@ quarto-cli
 tensorflow
 tqdm
 pyyaml
+pyarrow

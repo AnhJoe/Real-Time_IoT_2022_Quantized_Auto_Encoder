@@ -1,0 +1,123 @@
+# Introduction:
+
+The rapid adoption of Internet of Things (IoT) technologies across sectors such as healthcare, manufacturing, and agriculture has increased reliance on continuous connectivity and large-scale data exchange. While this connectivity enables new capabilities, it also expands the attack surface, making IoT devices attractive entry points for cyberattacks. Compromised devices can be leveraged to infiltrate broader network infrastructures through vulnerable endpoints (Sharmila and Nagapadma, 2023). The financial impact of these attacks continues to grow. The IBM Cost of a Data Breach Report 2025 estimates the global average cost of a breach at USD 4.44 million, highlighting the sustained economic risk posed by increasingly sophisticated and AI-enabled threats (IBM Security, 2025). Real-world incidents illustrate these risks clearly. In 2021, the Verkada breach exposed live feeds from approximately 150 million surveillance cameras, and in a separate incident, an attacker manipulated chemical levels at a Florida water treatment facility. Together, these events demonstrate the real-world consequences of cyberattacks targeting IoT systems and reinforce the need for reliable anomaly detection mechanisms as IoT deployments continue to scale (Sharmila and Nagapadma, 2023).
+
+This project replicates and extends the work of Sharmila and Nagapadma (2023) by evaluating autoencoder-based anomaly detection for identifying malicious IoT network traffic. Beyond replication, the study emphasizes systematic model selection, rigorous evaluation of predictive and generalization performance, and interpretation of how learned representations relate to underlying traffic features. Because IoT environments exhibit heterogeneous and device-specific traffic patterns, effective anomaly detection requires models that learn normal behavioral baselines rather than predefined attack signatures. Consistent with prior work, autoencoder models are trained exclusively on benign traffic under the assumption that anomalous activity produces higher reconstruction error. Experiments are conducted using real-time traffic collected from four representative devices—ThingSpeak-LED, MQTT-Temp, Amazon Alexa, and Wipro Bulb—allowing evaluation of model robustness across diverse IoT operating conditions.
+
+Modern intrusion detection systems (IDS) for IoT environments increasingly rely on unsupervised learning, particularly anomaly detection, to identify rare deviations from normal network behavior. As discussed by Sharmila and Nagapadma (2023), this approach is well suited to IoT settings where labeled attack data is limited and anomalous events may have significant operational or environmental consequences. Progress in this area, however, has been constrained by the scarcity of realistic IoT network traffic datasets. To address this limitation, the authors emphasize the importance of datasets derived from real-time IoT devices that capture both benign and malicious activity patterns.
+
+The authors also note that deploying AI-based IDS frameworks directly on IoT devices introduces practical constraints due to limited memory, processing power, and energy availability. Consequently, conventional deep learning models are often impractical without optimization. Their work highlights model optimization techniques—including network pruning and numerical quantization—as effective strategies for reducing model size and computational overhead while maintaining detection performance. These optimizations enable faster inference, lower energy consumption, and more feasible deployment of anomaly detection models on resource-constrained IoT hardware.
+
+## Project Objectives:
+
+The goal of this project is to evaluate machine learning approaches for detecting anomalous network behavior in IoT environments using the RT-IoT 2022 dataset, with emphasis on both predictive performance and real-world deployment constraints.
+
+The project is guided by the following objectives:
+
+1. Establish a Supervised Baseline
+
+   - Develop a Logistic Regression classifier as an interpretable baseline for distinguishing between normal and attack network traffic.
+     
+   - This model provides a statistical reference point for evaluating more complex approaches and helps assess how effectively a linear decision boundary separates benign and malicious IoT activity.
+
+2. Develop Autoencoder-Based Anomaly Detection Models
+
+   - Implement autoencoder architectures (QAE-u8 and QAE-f16) trained primarily on normal network traffic, using reconstruction error to identify anomalous behavior.
+
+   - These models aim to learn compact representations of normal device activity and flag deviations that may correspond to cyberattacks. The analysis examines how representation learning compares with classical supervised classification for intrusion detection.
+
+3. Evaluate Edge Deployment Under Resource Constraints
+
+   - Deploy trained models on a Raspberry Pi to evaluate feasibility within resource-constrained IoT environments.
+
+   - Evaluation focuses on operational characteristics, including:
+
+     - inference latency
+
+     - CPU and memory utilization
+
+     - power and computational efficiency
+
+     - model size and deployment overhead
+
+   - This objective connects model performance with practical edge-computing requirements.
+
+4. Analyze Performance–Efficiency Tradeoffs
+
+   - Compare supervised and unsupervised approaches not only by predictive performance but also by efficiency when deployed on constrained hardware.
+
+   - The goal is to identify which modeling strategy provides the best balance between:
+
+     - detection capability
+
+     - computational cost
+
+     - real-world deployability in IoT security settings
+
+## Data Summary:
+
+Source Link: https://archive.ics.uci.edu/dataset/942/rt-iot2022
+
+RT-IoT2022 is a network traffic dataset collected from a real-time IoT environment containing both normal device activity and multiple simulated cyberattacks. The dataset includes traffic generated by IoT devices alongside attack scenarios such as brute-force SSH attempts, DDoS attacks (e.g., Hping and Slowloris), and network scanning patterns. Network flows are captured bidirectionally using the Zeek monitoring framework with the Flowmeter plugin, producing structured flow-level features that characterize packet behavior, timing, and protocol dynamics.
+
+In this project, RT-IoT2022 serves as the foundation for developing and evaluating intrusion detection approaches—particularly anomaly detection using autoencoders—aimed at identifying malicious behavior within real-time IoT network traffic.
+
+1) **Predictor (Feature) Variables**: The RT-IoT2022 dataset contains **83 predictor features** describing network traffic flows generated by real-time IoT devices. Rather than representing unrelated variables, these features follow a systematic naming convention built from combinations of directional prefixes and statistical or behavioral suffixes. Each feature captures a measurable property of packet flows—such as volume, timing, payload characteristics, protocol behavior, or connection state—computed either for one traffic direction or for the entire bidirectional flow.
+
+    This structured design allows the dataset to encode network behavior at multiple granularities (packet, flow, and temporal statistics), making it well suited for intrusion detection and anomaly detection tasks. Understanding the prefix–suffix pattern is essential for interpreting the predictors.
+   
+    **Prefixes (traffic scope / direction)**:
+    - fwd_ (forward): statistics computed for packets traveling from the origin/source to the responder/destination.
+    - bwd_ (backward): statistics computed for packets traveling from the responder/destination back to the origin/source.
+    - flow_ (flow-level): aggregate statistics computed across the entire bidirectional communication flow.
+    - active_ / idle_: metrics describing active transmission periods versus inactive (silent) intervals within a connection.
+    - (No prefix): global or contextual attributes describing protocol, ports, or overall flow characteristics.
+    
+    **Suffixes (measurement type / statistical summary)**:
+    - .min — minimum observed value within the flow.
+    - .max — maximum observed value within the flow.
+    - .tot — total accumulated value.
+    - .avg — arithmetic mean across packets/events.
+    - .std — standard deviation measuring variability.
+    - _per_sec — rate-based metric normalized by time.
+    - _flag_count — count of packets containing specific TCP control flags.
+    - _bytes, _pkts, _payload — volume-based measurements describing byte counts, packet counts, or payload sizes.
+    - _iat — inter-arrival time statistics between packets.
+    - _window_size — TCP window characteristics reflecting transport-layer behavior.
+
+    This prefix–suffix structure enables consistent interpretation across the 83 features while allowing the same behavioral concept (e.g., payload size or timing variability) to be analyzed across traffic directions and statistical summaries.
+
+2) **Outcome (Response) Variable**: Attack_type (categorical)
+    - Attack patterns:
+        - DOS_SYN_Hping
+        - ARP_poisioning
+        - NMAP_UDP_SCAN
+        - NMAP_XMAS_TREE_SCAN
+        - NMAP_OS_DETECTION
+        - NMAP_TCP_scan
+        - DDOS_Slowloris
+        - Metasploit_Brute_Force_SSH
+        - NMAP_FIN_SCAN
+    - Normal Patterns:
+        - MQTT
+        - Thing_speak
+        - Wipro_bulb_Dataset
+        - Amazon-Alexa (**MISSING FROM DATASET**)
+
+## Previous Work:
+
+## Report Organization:
+
+The remainder of this report is structured as follows. 
+
+Section 2 presents an exploratory analysis of the RT-IoT 2022 dataset, examining feature distributions, statistical separation between normal and attack traffic, and the overall structure of the data through techniques such as kernel density estimation, skewness analysis, correlation mapping, and principal component analysis. Diagnostic tools such as variance inflation factors are also used to examine multicollinearity among predictors. These analyses provide insight into the behavioral differences between benign and malicious network flows and motivate the preprocessing and modeling choices used in later sections.
+
+Section 3 describes the feature preprocessing pipeline used to prepare the dataset for modeling. This includes the encoding of categorical variables, identification of highly skewed features, and the application of log transformations to stabilize feature distributions. 
+
+Section 4 introduces a supervised baseline classifier using Logistic Regression. This section outlines the modeling framework, training procedure, and evaluation metrics used to establish a statistical benchmark for intrusion detection performance on the dataset.
+
+Section 5 extends the analysis to unsupervised anomaly detection using autoencoder-based models. These models are trained on normal traffic patterns and evaluated on their ability to identify anomalous behavior corresponding to attack traffic.
+
+Section 6 compares the performance of the supervised and unsupervised approaches and discusses their strengths and limitations. 
+
+Finally, Section 7 concludes the report by summarizing the key findings, discussing dataset limitations—including the absence of Amazon Alexa traffic—and outlining directions for future work, including edge deployment considerations for IoT intrusion detection systems.
