@@ -4,7 +4,7 @@ project:
 
 book:
   title: "Supervised Classification for anomaly detection in IoT devices using RT-IoT2022 dataset"
-  author: "Joe Nguyen"
+  author: "UC Irvine/Statistical Methods: Joe Nguyen"
   chapters:
     - index.qmd
     - notebooks\01_eda.qmd

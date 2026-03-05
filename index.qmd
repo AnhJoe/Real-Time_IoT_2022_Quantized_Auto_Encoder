@@ -1,5 +1,7 @@
-# Introduction:
+# Abstract:
 
+
+# Introduction:
 The rapid adoption of Internet of Things (IoT) technologies across sectors such as healthcare, manufacturing, and agriculture has increased reliance on continuous connectivity and large-scale data exchange. While this connectivity enables new capabilities, it also expands the attack surface, making IoT devices attractive entry points for cyberattacks. Compromised devices can be leveraged to infiltrate broader network infrastructures through vulnerable endpoints (Sharmila and Nagapadma, 2023). The financial impact of these attacks continues to grow. The IBM Cost of a Data Breach Report 2025 estimates the global average cost of a breach at USD 4.44 million, highlighting the sustained economic risk posed by increasingly sophisticated and AI-enabled threats (IBM Security, 2025). Real-world incidents illustrate these risks clearly. In 2021, the Verkada breach exposed live feeds from approximately 150 million surveillance cameras, and in a separate incident, an attacker manipulated chemical levels at a Florida water treatment facility. Together, these events demonstrate the real-world consequences of cyberattacks targeting IoT systems and reinforce the need for reliable anomaly detection mechanisms as IoT deployments continue to scale (Sharmila and Nagapadma, 2023).
 
 This project replicates and extends the work of Sharmila and Nagapadma (2023) by evaluating autoencoder-based anomaly detection for identifying malicious IoT network traffic. Beyond replication, the study emphasizes systematic model selection, rigorous evaluation of predictive and generalization performance, and interpretation of how learned representations relate to underlying traffic features. Because IoT environments exhibit heterogeneous and device-specific traffic patterns, effective anomaly detection requires models that learn normal behavioral baselines rather than predefined attack signatures. Consistent with prior work, autoencoder models are trained exclusively on benign traffic under the assumption that anomalous activity produces higher reconstruction error. Experiments are conducted using real-time traffic collected from four representative devices—ThingSpeak-LED, MQTT-Temp, Amazon Alexa, and Wipro Bulb—allowing evaluation of model robustness across diverse IoT operating conditions.
@@ -54,6 +56,8 @@ The project is guided by the following objectives:
 
      - real-world deployability in IoT security settings
 
+## Previous Work:
+
 ## Data Summary:
 
 Source Link: https://archive.ics.uci.edu/dataset/942/rt-iot2022
@@ -104,9 +108,7 @@ In this project, RT-IoT2022 serves as the foundation for developing and evaluati
         - Wipro_bulb_Dataset
         - Amazon-Alexa (**MISSING FROM DATASET**)
 
-## Previous Work:
-
-## Report Organization:
+## Report Organization: UPDATE NEEDED
 
 The remainder of this report is structured as follows. 
 

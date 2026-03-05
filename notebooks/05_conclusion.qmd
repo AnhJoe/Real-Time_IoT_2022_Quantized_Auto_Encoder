@@ -1,0 +1,19 @@
+# Conclusion:
+What did we learn?
+What were the limitations?
+
+## Future Work:
+What can we do if we had more time or resources?
+- Amazon Alexa data and more diverse IoT device traffic 
+
+## References: alphabetically
+EDA:
+- MI
+- PCA
+- 
+Autoencoder
+Quantization
+Deployment
+
+## Appendix:
+1. Github Repository: 
