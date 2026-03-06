@@ -209,7 +209,7 @@ def plot_k_diagnostics(metrics_df: pd.DataFrame) -> None:
     """
     df = metrics_df.sort_values("k")
 
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+    fig, axes = plt.subplots(2, 2, figsize=(8, 6))
 
     axes[0, 0].plot(df["k"], df["inertia"], marker="o")
     axes[0, 0].set_title("KMeans Inertia (Elbow)")
@@ -268,7 +268,7 @@ def plot_clusters_pca(
     s: int = 6,
     alpha: float = 0.5,
 ) -> None:
-    plt.figure(figsize=(10, 7))
+    plt.figure(figsize=(6, 4))
     plt.scatter(Z2[:, 0], Z2[:, 1], c=labels, s=s, alpha=alpha)
     plt.xlabel(f"PC1 ({evr[0]*100:.1f}% var)")
     plt.ylabel(f"PC2 ({evr[1]*100:.1f}% var)")

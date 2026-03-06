@@ -9,6 +9,7 @@ import pandas as pd
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, RobustScaler
 from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
 
 def preprocess_categorical_ports(
     df: pd.DataFrame,
@@ -106,6 +107,117 @@ def preprocess_categorical_ports(
     return df_encoded, port_group_counts
 
 
+# ---------------------------
+# Stratified split
+# ---------------------------
+
+def stratified_train_val_test_split(
+    X,
+    y,
+    train_size=0.70,
+    val_size=0.15,
+    test_size=0.15,
+    downsample_train=None,   # optional fraction of training set to keep
+    random_state=42,
+):
+    """
+    Split X and y into stratified train/validation/test sets.
+
+    Optionally applies class-balanced downsampling to the training set only.
+    Validation and test sets are left unchanged for unbiased evaluation.
+
+    Parameters
+    ----------
+    X : pd.DataFrame or np.ndarray
+        Feature matrix.
+    y : array-like
+        Target vector.
+    train_size : float, default=0.70
+        Proportion of data assigned to training.
+    val_size : float, default=0.15
+        Proportion of data assigned to validation.
+    test_size : float, default=0.15
+        Proportion of data assigned to test.
+    downsample_train : float or None, default=None
+        Fraction of the training set to keep, using stratified sampling.
+        Example: 0.25 keeps 25% of the training rows while preserving class balance.
+        If None, no downsampling is applied.
+    random_state : int, default=42
+        Random seed for reproducibility.
+
+    Returns
+    -------
+    ((X_train, y_train), (X_val, y_val), (X_test, y_test))
+    """
+    y = np.asarray(y)
+
+    if not np.isclose(train_size + val_size + test_size, 1.0):
+        raise ValueError("train_size + val_size + test_size must sum to 1.0")
+
+    # ---------------------------
+    # 1) Split train vs temp
+    # ---------------------------
+    # temp will later be split into validation and test
+    X_train, X_temp, y_train, y_temp = train_test_split(
+        X,
+        y,
+        test_size=(1.0 - train_size),
+        stratify=y,
+        random_state=random_state,
+    )
+
+    # ---------------------------
+    # 2) Split temp into val/test
+    # ---------------------------
+    val_prop = val_size / (val_size + test_size)
+
+    X_val, X_test, y_val, y_test = train_test_split(
+        X_temp,
+        y_temp,
+        test_size=(1.0 - val_prop),
+        stratify=y_temp,
+        random_state=random_state,
+    )
+
+    # ---------------------------
+    # 3) Optional class-balanced downsampling of training set
+    # ---------------------------
+    # Keeps only a fraction of the training data while preserving
+    # the class proportions in y_train.
+    if downsample_train is not None:
+        if not (0 < downsample_train <= 1):
+            raise ValueError("downsample_train must be in (0, 1]")
+
+        if downsample_train < 1.0:
+            if hasattr(X_train, "iloc"):
+                # If X is a DataFrame, use row positions and keep DataFrame output
+                train_idx = np.arange(len(y_train))
+                keep_idx, _ = train_test_split(
+                    train_idx,
+                    train_size=downsample_train,
+                    stratify=y_train,
+                    random_state=random_state,
+                )
+                X_train = X_train.iloc[keep_idx]
+            else:
+                # If X is a NumPy array, sample indices the same way
+                train_idx = np.arange(len(y_train))
+                keep_idx, _ = train_test_split(
+                    train_idx,
+                    train_size=downsample_train,
+                    stratify=y_train,
+                    random_state=random_state,
+                )
+                X_train = X_train[keep_idx]
+
+            y_train = y_train[keep_idx]
+
+    return (X_train, y_train), (X_val, y_val), (X_test, y_test)
+
+
+# ---------------------------
+# Matrix prep for clustering
+# ---------------------------
 
 @dataclass(frozen=True)
 class PreprocessConfig:

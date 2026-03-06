@@ -14,8 +14,8 @@ venv/
 # VS Code
 .vscode/
 
-# Data (keep raw csv if you want; otherwise ignore)
-# data/raw/
+# Data
+data/raw/
 data/processed/
 
 # Artifacts
@@ -26,13 +26,28 @@ artifacts/
 *.pkl
 
 # Quarto / render outputs
-outputs/reports/
+# outputs/reports/
 outputs/figures/
 outputs/tables/
+.quarto/
+**/*.quarto_ipynb
+
+# LaTeX
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.tex
 
 # OS
 .DS_Store
 Thumbs.db
 
-/.quarto/
-**/*.quarto_ipynb
+

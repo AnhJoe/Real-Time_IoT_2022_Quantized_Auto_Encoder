@@ -8,9 +8,10 @@ What can we do if we had more time or resources?
 
 ## References: alphabetically
 EDA:
+- Effect Size
 - MI
 - PCA
-- 
+- Clustering
 Autoencoder
 Quantization
 Deployment

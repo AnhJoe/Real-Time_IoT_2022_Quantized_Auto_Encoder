@@ -1,12 +1,28 @@
+# Core scientific stack
 numpy
 pandas
 scikit-learn
+scipy
+statsmodels
+
+# Visualization
 matplotlib
 seaborn
-jupyter
-ipykernel
-quarto-cli
+
+# ML / Deep Learning
 tensorflow
+
+# Data formats
+pyarrow
+
+# Utilities
 tqdm
 pyyaml
-pyarrow
+
+# UCI ML repo
+ucimlrepo
+
+# Install quarto for report rendering
+# https://quarto.org/docs/get-started/
+# Quarto requires tinytext
+# Run: quarto install tinytex
