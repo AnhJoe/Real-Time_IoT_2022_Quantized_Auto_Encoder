@@ -13,6 +13,7 @@ The project also includes extensive **exploratory data analysis (EDA)** to under
 
 The motivation for this work is to evaluate whether **lightweight deep learning approaches such as quantized autoencoders can achieve competitive detection performance while remaining suitable for deployment in resource-constrained IoT environments.**
 
+Full Report: https://github.com/AnhJoe/Real-Time_IoT_2022_Quantized_Auto_Encoder/blob/main/outputs/reports/From-Classical-to-Quantized-Deep-Learning--Anomaly-Detection-in-IoT-Networks-Using-Logistic-Regression-and-Quantized-Autoencoders.pdf
 
 # Abstract
 
