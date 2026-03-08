@@ -1,5 +1,22 @@
 # RT-IoT2022 Anomaly Detection: Logistic Regression and Quantized Autoencoders
 
+- [RT-IoT2022 Anomaly Detection: Logistic Regression and Quantized Autoencoders](#rt-iot2022-anomaly-detection-logistic-regression-and-quantized-autoencoders)
+- [Overview](#overview)
+- [Abstract](#abstract)
+- [Data Summary](#data-summary)
+- [Methodology](#methodology)
+  - [1. Exploratory Data Analysis (01\_eda.ipynb)](#1-exploratory-data-analysis-01_edaipynb)
+  - [2. Baseline Supervised Model (02\_baseline\_lr.ipynb)](#2-baseline-supervised-model-02_baseline_lripynb)
+  - [3. Autoencoder-Based Anomaly Detection (03\_autoencoders.ipynb)](#3-autoencoder-based-anomaly-detection-03_autoencodersipynb)
+- [Implementation](#implementation)
+- [Key Findings](#key-findings)
+  - [1. The Dataset is Highly Separable](#1-the-dataset-is-highly-separable)
+  - [2. Logistic Regression is a Strong Baseline](#2-logistic-regression-is-a-strong-baseline)
+  - [3. Autoencoders Perform Competitively](#3-autoencoders-perform-competitively)
+  - [4. Quantization Maintains Detection Performance](#4-quantization-maintains-detection-performance)
+- [References](#references)
+- [Author](#author)
+
 # Overview
 
 This project investigates anomaly detection in Internet of Things (IoT) network traffic using the **RT-IoT2022 dataset**. The goal is to evaluate how effectively different machine learning approaches can distinguish **normal network activity from malicious attacks**.
