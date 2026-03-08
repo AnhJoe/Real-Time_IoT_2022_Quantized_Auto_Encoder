@@ -1,64 +1,84 @@
-# Abstract:
+# Abstract
 
+The rapid growth of Internet of Things (IoT) devices has significantly expanded the attack surface of modern networks, creating new challenges for intrusion detection systems. IoT environments often consist of heterogeneous devices with diverse communication patterns and limited computational resources, making it difficult to deploy traditional security mechanisms. This study investigates both supervised and unsupervised machine learning approaches for detecting anomalous network traffic within the **RT-IoT 2022 dataset**, with a focus on developing models that are both accurate and suitable for potential edge deployment.
 
-# Introduction:
-The rapid adoption of Internet of Things (IoT) technologies across sectors such as healthcare, manufacturing, and agriculture has increased reliance on continuous connectivity and large-scale data exchange. While this connectivity enables new capabilities, it also expands the attack surface, making IoT devices attractive entry points for cyberattacks. Compromised devices can be leveraged to infiltrate broader network infrastructures through vulnerable endpoints (Sharmila and Nagapadma, 2023). The financial impact of these attacks continues to grow. The IBM Cost of a Data Breach Report 2025 estimates the global average cost of a breach at USD 4.44 million, highlighting the sustained economic risk posed by increasingly sophisticated and AI-enabled threats (IBM Security, 2025). Real-world incidents illustrate these risks clearly. In 2021, the Verkada breach exposed live feeds from approximately 150 million surveillance cameras, and in a separate incident, an attacker manipulated chemical levels at a Florida water treatment facility. Together, these events demonstrate the real-world consequences of cyberattacks targeting IoT systems and reinforce the need for reliable anomaly detection mechanisms as IoT deployments continue to scale (Sharmila and Nagapadma, 2023).
+The analysis begins with **exploratory data analysis (EDA)** to understand the structure and characteristics of the dataset. The results reveal strong class imbalance between normal and attack traffic, substantial multicollinearity among network flow features, and clear separability between many attack and normal traffic patterns. These properties suggest that both classical classification models and anomaly detection techniques may perform effectively in this setting.
 
-This project replicates and extends the work of Sharmila and Nagapadma (2023) by evaluating autoencoder-based anomaly detection for identifying malicious IoT network traffic. Beyond replication, the study emphasizes systematic model selection, rigorous evaluation of predictive and generalization performance, and interpretation of how learned representations relate to underlying traffic features. Because IoT environments exhibit heterogeneous and device-specific traffic patterns, effective anomaly detection requires models that learn normal behavioral baselines rather than predefined attack signatures. Consistent with prior work, autoencoder models are trained exclusively on benign traffic under the assumption that anomalous activity produces higher reconstruction error. Experiments are conducted using real-time traffic collected from four representative devices—ThingSpeak-LED, MQTT-Temp, Amazon Alexa, and Wipro Bulb—allowing evaluation of model robustness across diverse IoT operating conditions.
+We first establish **logistic regression models** as supervised baselines. Three variants were evaluated: a model trained using all features, a LASSO-based feature selection model, and a stepwise-selected feature model. Logistic regression provides an interpretable and computationally lightweight approach while maintaining strong predictive performance, demonstrating that even simple models can effectively detect malicious traffic when the feature space contains informative signals.
 
-Modern intrusion detection systems (IDS) for IoT environments increasingly rely on unsupervised learning, particularly anomaly detection, to identify rare deviations from normal network behavior. As discussed by Sharmila and Nagapadma (2023), this approach is well suited to IoT settings where labeled attack data is limited and anomalous events may have significant operational or environmental consequences. Progress in this area, however, has been constrained by the scarcity of realistic IoT network traffic datasets. To address this limitation, the authors emphasize the importance of datasets derived from real-time IoT devices that capture both benign and malicious activity patterns.
+Next, we investigate **autoencoder-based anomaly detection**, an unsupervised approach that learns the structure of normal network traffic without requiring labeled attack data. The baseline autoencoder is trained exclusively on normal traffic and uses reconstruction error as an anomaly score. A threshold selected using validation-set F1 maximization converts reconstruction errors into attack predictions. The model achieves strong detection performance, indicating that deviations from learned normal traffic patterns provide a reliable signal for identifying anomalies.
 
-The authors also note that deploying AI-based IDS frameworks directly on IoT devices introduces practical constraints due to limited memory, processing power, and energy availability. Consequently, conventional deep learning models are often impractical without optimization. Their work highlights model optimization techniques—including network pruning and numerical quantization—as effective strategies for reducing model size and computational overhead while maintaining detection performance. These optimizations enable faster inference, lower energy consumption, and more feasible deployment of anomaly detection models on resource-constrained IoT hardware.
+To evaluate deployment-friendly architectures, we further explore **quantized autoencoder variants**, including a half-precision model (QAE-f16) and an 8-bit dynamically quantized model (QAE-u8). These models significantly reduce numerical precision and memory requirements compared with the standard 32-bit baseline. Despite this reduction in precision, both quantized models maintain nearly identical detection performance. The QAE-u8 model introduces a shifted reconstruction error scale requiring a different detection threshold, but classification metrics remain largely unchanged. These findings suggest that quantized autoencoders can retain strong anomaly detection capability while offering substantial efficiency gains.
 
-## Project Objectives:
+While the results demonstrate promising performance, several limitations should be considered. The dataset lacks certain documented traffic classes, including Amazon Alexa traffic, which reduces the diversity of benign behaviors available for training. Additionally, strong feature correlations and clear class separation within the dataset may simplify the detection task relative to real-world IoT environments.
 
-The goal of this project is to evaluate machine learning approaches for detecting anomalous network behavior in IoT environments using the RT-IoT 2022 dataset, with emphasis on both predictive performance and real-world deployment constraints.
+Overall, this study shows that both supervised logistic regression and unsupervised autoencoder models can effectively detect anomalous IoT network traffic. Moreover, quantization techniques enable neural models to achieve comparable detection performance while significantly reducing model precision requirements, highlighting their potential for **lightweight intrusion detection in resource-constrained IoT and edge computing environments**.
+
+# Introduction
+
+The rapid adoption of Internet of Things (IoT) technologies across sectors such as healthcare, manufacturing, agriculture, and smart infrastructure has increased reliance on continuous connectivity and large-scale data exchange. While this connectivity enables new capabilities, it also expands the attack surface, making IoT devices attractive entry points for cyberattacks. Compromised devices can be leveraged to infiltrate broader network infrastructures through vulnerable endpoints (Sharmila and Nagapadma, 2023). The financial impact of these attacks continues to grow. The IBM Cost of a Data Breach Report 2025 estimates the **global average cost of a breach at USD 4.44 million**, highlighting the sustained economic risk posed by increasingly sophisticated and AI-enabled threats (IBM Security, 2025). Real-world incidents illustrate these risks clearly. In 2021, the Verkada breach exposed live feeds from approximately 150 million surveillance cameras, and in a separate incident, an attacker manipulated chemical levels at a Florida water treatment facility. Together, these events demonstrate the real-world consequences of cyberattacks targeting IoT systems and reinforce the need for reliable anomaly detection mechanisms as IoT deployments continue to scale (Sharmila and Nagapadma, 2023).
+
+This project extends the work of Sharmila and Nagapadma (2023) by evaluating machine learning approaches for identifying malicious IoT network traffic within the RT-IoT 2022 dataset. In addition to model development, the study places strong emphasis on **exploratory data analysis (EDA)** to understand the statistical structure, feature relationships, and traffic patterns present in the dataset. Careful examination of feature distributions, correlations, and dimensional structure provides critical context for model design and helps explain why certain approaches perform well. Rather than focusing on operational deployment, the analysis prioritizes understanding how IoT network telemetry behaves and how machine learning models capture these patterns.
+
+Modern intrusion detection systems (IDS) for IoT environments increasingly rely on machine learning techniques, particularly anomaly detection, to identify deviations from normal network behavior. As discussed by Sharmila and Nagapadma (2023), unsupervised approaches are especially well suited to IoT settings where labeled attack data may be incomplete and where new attack patterns may emerge over time. However, progress in this area has often been constrained by the limited availability of realistic IoT traffic datasets. The RT-IoT 2022 dataset addresses this limitation by providing network traffic generated from real IoT devices under both normal and attack scenarios, enabling systematic evaluation of anomaly detection methods.
+
+This study therefore investigates both **supervised and unsupervised machine learning approaches** for detecting anomalous network traffic. Logistic regression models provide interpretable supervised baselines, while autoencoder-based models learn compact representations of normal network behavior and detect anomalies through reconstruction error. By combining rigorous exploratory analysis with multiple modeling strategies, the project aims to better understand how IoT network features relate to malicious activity and how different modeling approaches capture these relationships.
+
+## Project Objectives
+
+The goal of this project is to evaluate machine learning approaches for detecting anomalous network behavior in IoT environments using the RT-IoT 2022 dataset, with particular emphasis on **data exploration, model interpretability, and comparative performance analysis**.
 
 The project is guided by the following objectives:
 
-1. Establish a Supervised Baseline
+### Conduct Comprehensive Exploratory Data Analysis
 
-   - Develop a Logistic Regression classifier as an interpretable baseline for distinguishing between normal and attack network traffic.
-     
-   - This model provides a statistical reference point for evaluating more complex approaches and helps assess how effectively a linear decision boundary separates benign and malicious IoT activity.
+- Perform systematic exploratory analysis of the RT-IoT dataset to understand feature distributions, correlations, class structure, and dimensional characteristics.
 
-2. Develop Autoencoder-Based Anomaly Detection Models
+- Identify potential issues such as missing traffic categories, multicollinearity among network telemetry features, and class imbalance.
 
-   - Implement autoencoder architectures (QAE-u8 and QAE-f16) trained primarily on normal network traffic, using reconstruction error to identify anomalous behavior.
+- Apply dimensionality reduction techniques such as principal component analysis (PCA) and unsupervised clustering to examine the latent structure of the feature space and evaluate whether normal and attack traffic form distinct clusters
 
-   - These models aim to learn compact representations of normal device activity and flag deviations that may correspond to cyberattacks. The analysis examines how representation learning compares with classical supervised classification for intrusion detection.
+- Provide context for interpreting model performance and guide the design of downstream machine learning models.
 
-3. Evaluate Edge Deployment Under Resource Constraints
+### Establish a Supervised Baseline
 
-   - Deploy trained models on a Raspberry Pi to evaluate feasibility within resource-constrained IoT environments.
+- Develop logistic regression classifiers as interpretable baselines for distinguishing between normal and attack network traffic.
 
-   - Evaluation focuses on operational characteristics, including:
+- Evaluate models using the full feature set as well as feature-reduced variants using LASSO and stepwise selection.
 
-     - inference latency
+- These models provide a statistical reference point for understanding how effectively linear decision boundaries separate benign and malicious IoT activity.
+  
+### Develop Autoencoder-Based Anomaly Detection Models
 
-     - CPU and memory utilization
+- Implement autoencoder architectures trained primarily on normal network traffic, using reconstruction error to identify anomalous behavior.
 
-     - power and computational efficiency
+- Evaluate both full-precision and quantized variants (QAE-f16 & QAE-u8) of the autoencoder models.
 
-     - model size and deployment overhead
+- These models aim to learn compact representations of normal device activity and flag deviations that may correspond to cyberattacks.
 
-   - This objective connects model performance with practical edge-computing requirements.
+### Compare Supervised and Unsupervised Detection Approaches
 
-4. Analyze Performance–Efficiency Tradeoffs
+- Systematically compare supervised logistic regression models with unsupervised autoencoder-based anomaly detection models.
 
-   - Compare supervised and unsupervised approaches not only by predictive performance but also by efficiency when deployed on constrained hardware.
+- Evaluate performance using metrics such as accuracy, precision, recall, F1 score, ROC-AUC, and PR-AUC.
 
-   - The goal is to identify which modeling strategy provides the best balance between:
+- Analyze how model assumptions, feature structure, and dataset characteristics influence detection performance.
 
-     - detection capability
+## Related Work
 
-     - computational cost
+Recent studies emphasize the use of unsupervised learning methods, particularly autoencoders, for anomaly detection in IoT networks. Autoencoders learn the distribution of normal network behavior and detect attacks by measuring reconstruction error when anomalous traffic deviates from learned patterns. This approach has proven effective for identifying various IoT attacks such as DDoS, scanning, and spoofing attacks (Sharmila & Nagapadma, 2023; Tejaswini et al., 2025). 
 
-     - real-world deployability in IoT security settings
+Other studies have focused on improving the decision threshold selection used in anomaly detection systems. Because anomaly detection typically relies on reconstruction error to distinguish between normal and malicious traffic, selecting an optimal threshold is critical for balancing false positives and false negatives. Putrada and Ilhami (2024) proposed using the **geometric mean (g-mean) metric to determine the optimal threshold** for autoencoder-based anomaly detection on the RT-IoT2022 dataset. Their results demonstrated improved accuracy and sensitivity compared with alternative thresholding approaches such as statistical significance levels, z-score methods, and Bayesian models. 
 
-## Previous Work:
+In addition to deep learning approaches, traditional machine learning models continue to serve as strong baselines for intrusion detection. For example, Chythanya et al. (2025) evaluated logistic regression on the RT-IoT2022 dataset and **addressed dataset imbalance using the Synthetic Minority Oversampling Technique (SMOTE)**. Their results achieved high classification performance, with precision, recall, and F1 scores approaching 1.0 for several attack classes and an overall test accuracy of approximately 98%. However, certain classes remained difficult to classify due to overlapping network traffic characteristics. 
 
-## Data Summary:
+Beyond specific algorithms, research has also explored hybrid and deep neural network architectures that combine multiple neural network models to capture spatial and temporal patterns in network traffic. For instance, Patel et al. (2024) proposed a quantized deep neural network intrusion detection system combining **convolutional neural networks (CNNs) and long short-term memory (LSTM) networks**. Their approach demonstrated strong performance for multi-class attack detection while leveraging quantization techniques to reduce computational cost. 
+
+Recent research has also explored the use of **large transformer models (LTMs)** for intrusion detection in IoT environments. Almadhor et al. (2025) investigated transformer-based architectures such as BERT, DistilBERT, and RoBERTa for anomaly detection using the RT-IoT2022 dataset. Their approach converts structured IoT network traffic into textual representations to enable compatibility with natural language processing models, allowing transformers to leverage contextual relationships within network features. Experimental results demonstrated strong performance, with the BERT-based model achieving low training and validation loss during fine-tuning, indicating effective learning and generalization for attack classification tasks. The authors argue that transformer models provide improved contextual understanding compared to traditional machine learning and conventional deep learning approaches, potentially enabling more intelligent and automated intrusion detection systems for IoT networks. However, **transformer-based approaches typically require substantial computational resources**, which may limit their practicality for real-time deployment in resource-constrained IoT environments.
+
+Collectively, these studies demonstrate the effectiveness of machine learning and deep learning techniques for detecting anomalies in IoT networks. However, they also highlight **persistent challenges, including computational constraints in edge environments, class imbalance in network traffic datasets, and the difficulty of selecting optimal detection thresholds**. These limitations motivate continued research into efficient and interpretable anomaly detection systems for IoT cybersecurity.
+
+## Data Summary
 
 Source Link: https://archive.ics.uci.edu/dataset/942/rt-iot2022
 
@@ -107,19 +127,3 @@ In this project, RT-IoT2022 serves as the foundation for developing and evaluati
         - Thing_speak
         - Wipro_bulb_Dataset
         - Amazon-Alexa (**MISSING FROM DATASET**)
-
-## Report Organization: UPDATE NEEDED
-
-The remainder of this report is structured as follows. 
-
-Section 2 presents an exploratory analysis of the RT-IoT 2022 dataset, examining feature distributions, statistical separation between normal and attack traffic, and the overall structure of the data through techniques such as kernel density estimation, skewness analysis, correlation mapping, and principal component analysis. Diagnostic tools such as variance inflation factors are also used to examine multicollinearity among predictors. These analyses provide insight into the behavioral differences between benign and malicious network flows and motivate the preprocessing and modeling choices used in later sections.
-
-Section 3 describes the feature preprocessing pipeline used to prepare the dataset for modeling. This includes the encoding of categorical variables, identification of highly skewed features, and the application of log transformations to stabilize feature distributions. 
-
-Section 4 introduces a supervised baseline classifier using Logistic Regression. This section outlines the modeling framework, training procedure, and evaluation metrics used to establish a statistical benchmark for intrusion detection performance on the dataset.
-
-Section 5 extends the analysis to unsupervised anomaly detection using autoencoder-based models. These models are trained on normal traffic patterns and evaluated on their ability to identify anomalous behavior corresponding to attack traffic.
-
-Section 6 compares the performance of the supervised and unsupervised approaches and discusses their strengths and limitations. 
-
-Finally, Section 7 concludes the report by summarizing the key findings, discussing dataset limitations—including the absence of Amazon Alexa traffic—and outlining directions for future work, including edge deployment considerations for IoT intrusion detection systems.

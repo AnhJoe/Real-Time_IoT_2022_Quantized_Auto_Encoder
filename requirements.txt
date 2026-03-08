@@ -11,6 +11,7 @@ seaborn
 
 # ML / Deep Learning
 tensorflow
+torch
 
 # Data formats
 pyarrow

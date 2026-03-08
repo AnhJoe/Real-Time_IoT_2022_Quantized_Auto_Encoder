@@ -208,13 +208,19 @@ def plot_k_diagnostics(metrics_df: pd.DataFrame) -> None:
     2x2: inertia, silhouette, CH, gap (with error bars).
     """
     df = metrics_df.sort_values("k")
-
-    fig, axes = plt.subplots(2, 2, figsize=(8, 6))
+    plt.rcParams.update({
+    "font.size": 9,
+    "axes.titlesize": 10,
+    "axes.labelsize": 9,
+    "xtick.labelsize": 8,
+    "ytick.labelsize": 8
+    })
+    fig, axes = plt.subplots(2, 2, figsize=(6, 4))
 
     axes[0, 0].plot(df["k"], df["inertia"], marker="o")
     axes[0, 0].set_title("KMeans Inertia (Elbow)")
     axes[0, 0].set_xlabel("k")
-    axes[0, 0].set_ylabel("Inertia (Total within-cluster sum of squared distances)")
+    axes[0, 0].set_ylabel("Inertia")
 
     axes[0, 1].plot(df["k"], df["silhouette"], marker="o")
     axes[0, 1].set_title("Silhouette Score")
@@ -268,7 +274,7 @@ def plot_clusters_pca(
     s: int = 6,
     alpha: float = 0.5,
 ) -> None:
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(4, 4))
     plt.scatter(Z2[:, 0], Z2[:, 1], c=labels, s=s, alpha=alpha)
     plt.xlabel(f"PC1 ({evr[0]*100:.1f}% var)")
     plt.ylabel(f"PC2 ({evr[1]*100:.1f}% var)")

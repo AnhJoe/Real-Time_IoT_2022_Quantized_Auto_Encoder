@@ -3,6 +3,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     roc_auc_score,
+    average_precision_score,
     accuracy_score,
     precision_score,
     recall_score,
@@ -13,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 
-def tune_threshold_max_f1_attack(y_true, y_score, thresholds=None):
+def tune_threshold_max_f1_attack_lr(y_true, y_score, thresholds=None):
     """
     Select the probability threshold that maximizes F1 for the attack class.
     """
@@ -65,7 +66,7 @@ def fit_tune_evaluate_lr(
     val_score = pipe.predict_proba(Xva)[:, 1]
 
     # Tune threshold using validation F1 for attack class
-    best_thr, best_val_f1 = tune_threshold_max_f1_attack(
+    best_thr, best_val_f1 = tune_threshold_max_f1_attack_lr(
         np.asarray(yva),
         val_score
     )
@@ -78,13 +79,14 @@ def fit_tune_evaluate_lr(
     results = {
         "model": model_name,
         "n_features": Xtr.shape[1],
-        "best_threshold": best_thr,
-        "val_f1_attack": f1_score(yva, (val_score >= best_thr).astype(int), pos_label=1, zero_division=0),
+        "threshold": best_thr,
+        "val_f1": f1_score(yva, (val_score >= best_thr).astype(int), pos_label=1, zero_division=0),
         "test_roc_auc": roc_auc_score(yte, test_score),
+        "test_pr_auc": average_precision_score(yte, test_score),
         "test_accuracy": accuracy_score(yte, yte_pred),
-        "test_precision_attack": precision_score(yte, yte_pred, pos_label=1, zero_division=0),
-        "test_recall_attack": recall_score(yte, yte_pred, pos_label=1, zero_division=0),
-        "test_f1_attack": f1_score(yte, yte_pred, pos_label=1, zero_division=0),
+        "test_precision": precision_score(yte, yte_pred, pos_label=1, zero_division=0),
+        "test_recall": recall_score(yte, yte_pred, pos_label=1, zero_division=0),
+        "test_f1": f1_score(yte, yte_pred, pos_label=1, zero_division=0),
     }
 
     cm = confusion_matrix(yte, yte_pred)

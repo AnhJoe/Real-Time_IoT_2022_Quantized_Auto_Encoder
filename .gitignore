@@ -17,6 +17,7 @@ venv/
 # Data
 data/raw/
 data/processed/
+data/artifacts/
 *.csv
 
 # Artifacts
@@ -52,3 +53,5 @@ outputs/tables/
 Thumbs.db
 
 
+
+/.quarto/

@@ -3,17 +3,14 @@ project:
   output-dir: outputs/reports
 
 book:
-  title: "Supervised Classification for anomaly detection in IoT devices using RT-IoT2022 dataset"
+  title: "From Classical to Quantized Deep Learning: Anomaly Detection in IoT Networks Using Logistic Regression and Quantized Autoencoders"
   author: "UC Irvine/Statistical Methods: Joe Nguyen"
   chapters:
     - index.qmd
     - notebooks\01_eda.qmd
-    - notebooks\02_preprocess.qmd
-    - notebooks\03_baseline_lr.qmd
-    - notebooks\04_clustering.qmd
-    - notebooks\05_autoencoders.qmd
-    - notebooks\06_model_comparison.qmd
-    - notebooks\07_conclusion.qmd
+    - notebooks\02_baseline_lr.qmd
+    - notebooks\03_autoencoders.qmd
+    - notebooks\04_conclusion.qmd
 
 format:
   pdf:
@@ -46,4 +43,5 @@ execute:
   warning: false
   message: false
   freeze: false
+  error: true
     
