@@ -8,6 +8,7 @@ statsmodels
 # Visualization
 matplotlib
 seaborn
+tabulate
 
 # ML / Deep Learning
 tensorflow
