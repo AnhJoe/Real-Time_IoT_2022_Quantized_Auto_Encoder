@@ -14,25 +14,32 @@ book:
 
 format:
   pdf:
-    output-file: rt_iot_final_report.pdf
+    output-file: svi_fema_2018_2020_report.pdf
     fig-path: outputs/figures
-    fontsize: 8pt
+    fontsize: 10pt
     fig-width: 2
     fig-height: 2
-    tbl-pos: "htbp"
     dpi: 300
     number-sections: true
     toc: true
     toc-depth: 3
     df-print: default
     keep-tex: true
+    fig-pos: "H"
+    tbl-pos: "H"
+    highlight-style: github
     geometry:
-    - margin=0.75in
+      - margin=0.75in
     header-includes:
       - \KOMAoption{captions}{tableheading}
+      - \KOMAoption{headings}{normal}
       - \usepackage{textcomp}
+      - \usepackage{fancyvrb}
+      - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+      - \RedeclareSectionCommand[beforeskip=0pt,afterskip=1.2\baselineskip]{chapter}
     include-in-header:
       text: |
+        \usepackage{float}
         \usepackage[section]{placeins}
         \usepackage{multirow}
         \usepackage{booktabs}
