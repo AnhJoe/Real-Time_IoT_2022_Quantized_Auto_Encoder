@@ -228,27 +228,27 @@ This makes quantized autoencoders particularly attractive for **deployment in re
 
 # References
 
-1. Almadhor, A., Alsubai, S., Kryvinska, N., Al Hejaili, A., Ayari, M., Bouallegue, B., & Abbas, S. (2025). Evaluating large transformer models for anomaly detection of resource-constrained IoT devices for intrusion detection system. Scientific Reports, 15, 37972. https://www.semanticscholar.org/paper/Evaluating-large-transformer-models-for-anomaly-of-Almadhor-Alsubai/ac425cacf7c3d9e729fe7dd8d2242091f24609e4
+Almadhor, A., Alsubai, S., Kryvinska, N., Al Hejaili, A., Ayari, M., Bouallegue, B., & Abbas, S. (2025). Evaluating large transformer models for anomaly detection of resource-constrained IoT devices for intrusion detection system. Scientific Reports, 15, 37972. https://www.semanticscholar.org/paper/Evaluating-large-transformer-models-for-anomaly-of-Almadhor-Alsubai/ac425cacf7c3d9e729fe7dd8d2242091f24609e4
    
-2. Chythanya, K. R., Tuteja, G., Gupta, S., Govindrao, P. S., Mahajan, S., & Singh, A. R. (2025). Efficient anomaly detection in IoT networks using logistic regression and SMOTE. Proceedings of the 6th International Conference for Emerging Technology (INCET). https://www.semanticscholar.org/paper/Efficient-Anomaly-Detection-in-IoT-Networks-Using-Chythanya-Tuteja/f46e4359ac9708b658269baeda3bb7207779adb5 
+Chythanya, K. R., Tuteja, G., Gupta, S., Govindrao, P. S., Mahajan, S., & Singh, A. R. (2025). Efficient anomaly detection in IoT networks using logistic regression and SMOTE. Proceedings of the 6th International Conference for Emerging Technology (INCET). https://www.semanticscholar.org/paper/Efficient-Anomaly-Detection-in-IoT-Networks-Using-Chythanya-Tuteja/f46e4359ac9708b658269baeda3bb7207779adb5 
 
-3. Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum Associates. https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2013.00863/full
+Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum Associates. https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2013.00863/full
    
-4. Hastie, T., Tibshirani, R., & Friedman, J. (2009). The elements of statistical learning: Data mining, inference, and prediction (2nd ed.). Springer. https://link.springer.com/book/10.1007/978-0-387-84858-7 
+Hastie, T., Tibshirani, R., & Friedman, J. (2009). The elements of statistical learning: Data mining, inference, and prediction (2nd ed.). Springer. https://link.springer.com/book/10.1007/978-0-387-84858-7 
    
-5. IBM Security. (2025). Cost of a data breach report 2025: The AI oversight gap. IBM Corporation. https://www.ibm.com/reports/data-breach
+IBM Security. (2025). Cost of a data breach report 2025: The AI oversight gap. IBM Corporation. https://www.ibm.com/reports/data-breach
 
-6. Patel, N. D., Rao, V. S., & Singh, A. (2024). QDNN-IDS: Quantized deep neural network based computational strategy for intrusion detection in IoT. IEEE Silchar Subsection Conference (SILCON). https://www.semanticscholar.org/paper/QDNN-IDS%3A-Quantized-Deep-Neural-Network-based-for-Patel-Rao/cb6e0039bf8bb4c92b3e48304695362f7fae7e44 
+Patel, N. D., Rao, V. S., & Singh, A. (2024). QDNN-IDS: Quantized deep neural network based computational strategy for intrusion detection in IoT. IEEE Silchar Subsection Conference (SILCON). https://www.semanticscholar.org/paper/QDNN-IDS%3A-Quantized-Deep-Neural-Network-based-for-Patel-Rao/cb6e0039bf8bb4c92b3e48304695362f7fae7e44 
 
-7. Peng, H., Long, F., & Ding, C. (2005). Feature selection based on mutual information: Criteria of max-dependency, max-relevance, and min-redundancy. IEEE Transactions on Pattern Analysis and Machine Intelligence, 27(8), 1226–1238. https://ieeexplore.ieee.org/document/1453511
+Peng, H., Long, F., & Ding, C. (2005). Feature selection based on mutual information: Criteria of max-dependency, max-relevance, and min-redundancy. IEEE Transactions on Pattern Analysis and Machine Intelligence, 27(8), 1226–1238. https://ieeexplore.ieee.org/document/1453511
    
-8. Putrada, A. G., & Ilhami, D. A. S. (2024). G-mean for optimum threshold in anomaly detection with autoencoder: Cyber security on the RT-IoT2022 dataset. IEEE 22nd Student Conference on Research and Development (SCOReD). https://www.semanticscholar.org/paper/G-Mean-for-Optimum-Threshold-in-Anomaly-Detection-Putrada-Ilhami/c0e1552ff8bacfba87ecbd65bc16bc80405aa68f 
+Putrada, A. G., & Ilhami, D. A. S. (2024). G-mean for optimum threshold in anomaly detection with autoencoder: Cyber security on the RT-IoT2022 dataset. IEEE 22nd Student Conference on Research and Development (SCOReD). https://www.semanticscholar.org/paper/G-Mean-for-Optimum-Threshold-in-Anomaly-Detection-Putrada-Ilhami/c0e1552ff8bacfba87ecbd65bc16bc80405aa68f 
 
-9.  Russell, S. J., & Norvig, P. (2021). Artificial intelligence: A modern approach (4th ed.). Pearson. https://api.pageplace.de/preview/DT0400.9781292401171_A41586057/preview-9781292401171_A41586057.pdf 
-   
-10. Sharmila, B. S., & Nagapadma, R. (2023). Quantized autoencoder intrusion detection system for anomaly detection in resource-constrained IoT devices using RT-IoT2022 dataset. Cybersecurity, 6(41). https://www.semanticscholar.org/paper/Quantized-autoencoder-(QAE)-intrusion-detection-for-Sharmila-Nagapadma/753f6ede01b4acaa325e302c38f1e0c1ade74f5b
+Russell, S. J., & Norvig, P. (2021). Artificial intelligence: A modern approach (4th ed.). Pearson. https://api.pageplace.de/preview/DT0400.9781292401171_A41586057/preview-9781292401171_A41586057.pdf 
 
-11. Tejaswini, R., Abinaya, P., Anuprabha, S. S., Chidambaram, S. K., Arya, S., Choukiker, Y. K., & Bhowmick, A. (2025). Anomaly detection in IoT networks: A deep learning approach using autoencoders. IEEE Access, 13. https://ieeexplore.ieee.org/document/11077140 
+Sharmila, B. S., & Nagapadma, R. (2023). Quantized autoencoder intrusion detection system for anomaly detection in resource-constrained IoT devices using RT-IoT2022 dataset. Cybersecurity, 6(41). https://www.semanticscholar.org/paper/Quantized-autoencoder-(QAE)-intrusion-detection-for-Sharmila-Nagapadma/753f6ede01b4acaa325e302c38f1e0c1ade74f5b
+
+Tejaswini, R., Abinaya, P., Anuprabha, S. S., Chidambaram, S. K., Arya, S., Choukiker, Y. K., & Bhowmick, A. (2025). Anomaly detection in IoT networks: A deep learning approach using autoencoders. IEEE Access, 13. https://ieeexplore.ieee.org/document/11077140 
 
 # Author
 
